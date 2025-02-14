@@ -1,0 +1,13 @@
+
+# dependencies
+/node_modules
+/dist
+
+# testing
+/coverage
+/.cache
+# production
+/build
+
+junit.xml
+

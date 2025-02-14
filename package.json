@@ -1,0 +1,71 @@
+{
+  "name": "scan",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.hbkworld.com/web/lib/scan.git"
+  },
+  "main": "./index.js",
+  "config": {
+    "files": "**/*.{ts,tsx,html}"
+  },
+  "scripts": {
+    "ci": "npm run ci:eslint && npm run ci:prettier && npm run ci:stylelint && npm run ci:type-check",
+    "ci:eslint": "cross-env-shell eslint --max-warnings 0",
+    "ci:prettier": "cross-env-shell prettier --list-different --ignore-path .gitignore $npm_package_config_files",
+    "ci:semantic-release": "semantic-release",
+    "ci:stylelint": "stylelint --allow-empty-input \"./**/*.scss\"",
+    "ci:type-check": "tsc --noEmit --skipLibCheck ",
+    "build": "tsc",
+    "build:scheme": "typescript-json-schema -o dist/Announcement.json --noExtraProps --required src/Types.ts Announcement",
+    "postbuild": "cp package.json dist",
+    "prettier": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,html}\"",
+    "eslint": "cross-env-shell eslint --max-warnings 0 --fix ",
+    "example:bonjour": "esbuild examples/BonjourScan.ts  --bundle --outfile=build/bonjour.cjs --format=cjs --platform=node && node build/bonjour.cjs",
+    "example:hbk": "esbuild examples/hbkScan.ts  --bundle --outfile=build/hbk.cjs --format=cjs --platform=node && node build/hbk.cjs",
+    "example:upnp": "esbuild examples/upnpScan.ts  --bundle --outfile=build/upnp.cjs --format=cjs --platform=node && node build/upnp.cjs",
+    "dev": "esbuild examples/upnpScan.ts  --bundle --outfile=build/build.cjs --format=cjs --platform=node && node build/build.cjs"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "standard": {
+    "ignore": [
+      ".storybook/",
+      "src/"
+    ]
+  },
+  "license": "MIT",
+  "description": "Class to scan and validate device",
+  "author": "Florian Schopp",
+  "dependencies": {
+    "@eslint/compat": "^1.2.6",
+    "@testing-library/react": "^16.1.0",
+    "bonjour-service": "^1.3.0",
+    "cross-env-shell": "^7.0.3",
+    "eslint": "^9.20.1",
+    "eslint-config-love": "^118.0.0",
+    "eslint-plugin-html": "^8.1.2",
+    "eslint-plugin-react": "^7.37.4",
+    "events": "^3.3.0",
+    "net": "^1.0.2",
+    "node-upnp-utils": "^1.0.3",
+    "prettier": "^3.5.1",
+    "stylelint": "^16.14.1",
+    "typescript": "^5.7.2",
+    "typescript-json-schema": "^0.65.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "esbuild": "^0.24.2"
+  }
+}
