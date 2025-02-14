@@ -24,7 +24,8 @@
     "example:bonjour": "esbuild examples/BonjourScan.ts  --bundle --outfile=build/bonjour.cjs --format=cjs --platform=node && node build/bonjour.cjs",
     "example:hbk": "esbuild examples/hbkScan.ts  --bundle --outfile=build/hbk.cjs --format=cjs --platform=node && node build/hbk.cjs",
     "example:upnp": "esbuild examples/upnpScan.ts  --bundle --outfile=build/upnp.cjs --format=cjs --platform=node && node build/upnp.cjs",
-    "dev": "esbuild examples/upnpScan.ts  --bundle --outfile=build/build.cjs --format=cjs --platform=node && node build/build.cjs"
+    "dev": "esbuild examples/upnpScan.ts  --bundle --outfile=build/build.cjs --format=cjs --platform=node && node build/build.cjs",
+    "mock": "esbuild mock/mock.ts  --bundle --outfile=build/mock.cjs --format=cjs --platform=node && node build/mock.cjs"
   },
   "browserslist": {
     "production": [
