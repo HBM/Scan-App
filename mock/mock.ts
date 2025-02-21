@@ -1,7 +1,23 @@
 import dgram, { type Socket } from 'dgram'
-const socket = dgram.createSocket({ type: 'udp4', reuseAddr: true })
-socket.bind(31416, '239.255.77.76')
+const announceSocket = dgram.createSocket({ type: 'udp4', reuseAddr: true })
+const configSocket = dgram.createSocket({ type: 'udp4', reuseAddr: true })
+// Announce socket
+announceSocket.bind(31416, '0.0.0.0', () => {
+  announceSocket.addMembership('239.255.77.76')
+})
 
+// Configuration socket to receive configuration messages
+configSocket.bind(31417, '0.0.0.0', () => {
+  configSocket.addMembership('239.255.77.77')
+})
+
+// Listening for configuration messages
+configSocket.on('message', (msg) => {
+  console.log('Received configuration:')
+  console.log(JSON.parse(msg.toString()))
+})
+
+// Announcement broadcasting
 setInterval(() => {
   const message = {
     jsonrpc: '2.0',
@@ -40,5 +56,5 @@ setInterval(() => {
   }
 
   console.log('sending')
-  socket.send(JSON.stringify(message), 31416, '239.255.77.76')
+  announceSocket.send(JSON.stringify(message), 31416, '239.255.77.76')
 }, 2000)
